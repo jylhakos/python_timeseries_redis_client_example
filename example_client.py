@@ -8,13 +8,27 @@ import random
 
 print(' \n '.join(sys.path))
 
-ts = RedisTimeSeries(port=6379)
+ts = RedisTimeSeries(host='localhost', port=6379)
 
 ts.flushdb()
 
+key = 'temperature'
+
+def query(key, begin_time, end_time):
+	try:
+		for record in ts.range(key,begin_time,end_time,bucketSizeSeconds=1):
+
+			timestamp = datetime.datetime.fromtimestamp(record[0]).strftime('%Y-%m-%d %H:%M:%S')
+			
+			data = round(float(record[1]),2)
+
+			print(' %s : %.2f ' % (timestamp, data))
+	except Exception:
+		print("\n Error")
+
 begin_time = int(time.time())
 
-ts.create('temperature', retentionSecs=30, labels={'sensor_id' : 2,'area_id' : 32})
+ts.create(key,retentionSecs=30,labels={'sensor_id' : 2,'area_id' : 32})
 
 begin_time_datetime = datetime.datetime.fromtimestamp(begin_time).strftime('%Y-%m-%d %H:%M:%S')
 
@@ -32,7 +46,7 @@ for i in range(10):
 
 	sys.stdout.flush()
 
-	ts.add('temperature',timestamp,data,retentionSecs=30,labels={'sensor_id' : 2,'area_id' : 32})
+	ts.add(key,timestamp,data,retentionSecs=30, labels={'sensor_id' : 2,'area_id' : 32})
 
 	time.sleep(1)
 
@@ -44,11 +58,8 @@ time.sleep(1)
 
 print("\n Query the data for a time range: %s to %s\n" % (begin_time_datetime, end_time_datetime))
 
-for record in ts.range('temperature',begin_time,end_time,bucketSizeSeconds=1):
+query(key,begin_time,end_time)
 
-	timestamp = datetime.datetime.fromtimestamp(record[0]).strftime('%Y-%m-%d %H:%M:%S')
+ts.delete(key)
 
-	data = round(float(record[1]),2)
-
-	print(' %s : %.2f ' % (timestamp, data))
 print('')
