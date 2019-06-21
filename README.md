@@ -1,4 +1,4 @@
-# python timeseries redis client example
+# example_python.py
 
   Python client for Redis key-value store using RedisTimeSeries client.
 
@@ -6,22 +6,22 @@
 
   Installing
 
-  1. Download and install Redis 5.0 or above
+  1. Download and install the latest Redis 5.x
 
-    $ python setup.py install
+    $ make install
+    
+    https://redis.io/download
 
-  2. Download RedisTimeSeries
+  2. Download, make and load RedisTimeSeries module
 
     $ git clone https://github.com/RedisTimeSeries/RedisTimeSeries.git
 
-  For more information about RedisTimeSeries
- 
     https://oss.redislabs.com/redistimeseries/
 
-  3. Install redistimeseries-py Python client
+  3. Downlaod and install redistimeseries-py Python client
 
-    $ pip install redistimeseries
+    $ python3 setup.py install
 
-  4. Download and run an example client to create, add and query range of timeseries data in Redis
+  4. Download and run an example Python script to create, add and query of timeseries in Redis.
 
-    $ python example_client.py
+    $ python3 example_client.py
