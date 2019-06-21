@@ -1,4 +1,4 @@
-# example_python.py
+# example_client.py
 
   Python client for Redis key-value store using RedisTimeSeries client.
 
