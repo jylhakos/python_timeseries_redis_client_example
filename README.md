@@ -18,7 +18,7 @@
 
     https://oss.redislabs.com/redistimeseries/
 
-  3. Downlaod and install redistimeseries-py Python client
+  3. Download and install redistimeseries-py Python client
 
     $ python3 setup.py install
 
