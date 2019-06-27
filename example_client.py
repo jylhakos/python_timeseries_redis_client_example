@@ -81,6 +81,9 @@ def print_info():
 		print(" sensor_id=%s " % str(sensor))
 		area = info.labels['area_id']
 		print(" area_id=%s " % str(area))
+		last_time_stamp_seconds = info.__dict__['lastTimeStamp']
+		last_time_stamp = datetime.datetime.fromtimestamp(last_time_stamp_seconds).strftime('%Y-%m-%d %H:%M:%S')
+		print(" last_time_stamp=%s " % str(last_time_stamp))
 
 	print('')
 
