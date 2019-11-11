@@ -18,7 +18,8 @@ def create(key):
 
 	print('\n Create new time series: %s' % str(key))
 
-	ts.create(key,retentionSecs=30,labels={'sensor_id' : 2,'area_id' : 32})
+	#ts.create(key,retentionSecs=30,labels={'sensor_id' : 2,'area_id' : 32})
+	ts.create(key,retention_msecs=30000,labels={'sensor_id' : 2,'area_id' : 32})
 
 	print('')
 
@@ -40,7 +41,8 @@ def store(key, interval):
 
 		sys.stdout.flush()
 
-		ts.add(key,timestamp,value,retentionSecs=30, labels={'sensor_id' : 2,'area_id' : 32})
+		#ts.add(key,timestamp,value,retentionSecs=30, labels={'sensor_id' : 2,'area_id' : 32})
+		ts.add(key,timestamp,value,retention_msecs=30000, labels={'sensor_id' : 2,'area_id' : 32})
 
 		time.sleep(1)
 
@@ -57,7 +59,8 @@ def query(key, begin_time, end_time):
 	print("\n Query time series in range:\n\n %s to %s \n" % (begin_time_datetime, end_time_datetime))
 
 	try:
-		for record in ts.range(key,begin_time, end_time,bucketSizeSeconds=1):
+		#for record in ts.range(key,begin_time, end_time,bucketSizeSeconds=1):
+		for record in ts.range(key,begin_time, end_time,bucket_size_msec=1000):
 
 			timestamp = datetime.datetime.fromtimestamp(record[0]).strftime('%Y-%m-%d %H:%M:%S')
 			
